@@ -48,3 +48,52 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+# Pet Document Manager
+
+## Technical Requirements
+
+### Database
+
+- Planning to use either SQLite or Realm for local database storage
+- Requirements:
+  - Store pets and related documents
+  - Query capabilities
+  - Image storage
+  - Document storage
+  - Filter documents by pet
+  - Pet should have a name
+  - Pet should have a nullable birth date
+  - Pet should have a nullable breed
+  - Pet should have a nullable species
+  - Pet should have a nullable gender
+  - Pet should have a nullable color
+  - Pet should have a nullable notes
+  - Pet should have an id
+  - Pet should have a nullable imageUri (for the pet image)
+  - Pet should have events array
+  - Event should have nullable documents array (or array of documents ids/uris)?
+  - Event should have nullable notes
+  - Event should have a name
+  - Event should have a nullable date
+  - Event should have a nullable location
+  - Event should have an id
+
+### Navigation
+
+- Using expo-router for application navigation
+
+### Media Handling
+
+- **Image Management:**
+  - Expo ImagePicker for adding images and taking photos within the app
+  - React Native Documents Picker for handling both images and documents
+- **Camera Integration:**
+  - Expo Camera API for in-app photo capture
+
+## Libraries
+
+- [expo-router](https://expo.github.io/router/docs/)
+- [Expo ImagePicker](https://docs.expo.dev/versions/latest/sdk/imagepicker/)
+- [React Native Document Picker](https://react-native-documents.github.io/docs/sponsor-only/intro)
+- [Expo Camera](https://docs.expo.dev/versions/latest/sdk/camera/)
