@@ -1,15 +1,11 @@
-import { View, Text } from "react-native";
+import { Text } from "react-native";
+import { DefaultPage, Header } from "@/components";
 
 export default function Documents() {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
+    <DefaultPage>
+      <Header title="Dokumenty" />
       <Text>This is documents screen.</Text>
-    </View>
+    </DefaultPage>
   );
 }

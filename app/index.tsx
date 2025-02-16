@@ -1,15 +1,15 @@
-import { Text, View } from "react-native";
+import { Text } from "react-native";
+
+import { Link } from "expo-router";
+import { DefaultPage } from "@/components";
 
 export default function Index() {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-    </View>
+    <DefaultPage>
+      <Text>Start screen</Text>
+      <Link href="/pets">
+        <Text>Go to pets</Text>
+      </Link>
+    </DefaultPage>
   );
 }
