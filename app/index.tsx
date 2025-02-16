@@ -1,8 +1,7 @@
-import { Text, View } from "react-native";
-import { Colors } from "../assets/colors/colors";
+import { Text } from "react-native";
+
 import { Link } from "expo-router";
-import Navigation from "@/components/navigation/Navigation";
-import DefaultPage from "@/components/page/DefaultPage";
+import { DefaultPage } from "@/components";
 
 export default function Index() {
   return (

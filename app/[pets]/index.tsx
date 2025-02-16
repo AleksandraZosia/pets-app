@@ -1,8 +1,6 @@
+import { DefaultPage, Header } from "@/components";
 import { Link } from "expo-router";
-import { View, Text } from "react-native";
-import Navigation from "@/components/navigation/Navigation";
-import Header from "@/components/header/Header";
-import DefaultPage from "@/components/page/DefaultPage";
+import { Text } from "react-native";
 
 export default function Pets() {
   return (

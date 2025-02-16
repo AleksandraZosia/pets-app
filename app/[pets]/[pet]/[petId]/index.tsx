@@ -1,7 +1,6 @@
-import { View, Text } from "react-native";
+import { Text } from "react-native";
 import { useLocalSearchParams } from "expo-router";
-import Header from "@/components/header/Header";
-import DefaultPage from "@/components/page/DefaultPage";
+import { DefaultPage, Header } from "@/components";
 
 export default function Pet() {
   const { petId } = useLocalSearchParams();

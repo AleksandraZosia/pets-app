@@ -10,7 +10,7 @@ import { Colors } from "@/assets/colors/colors";
 import { StyleSheet } from "react-native";
 import paths from "@/consts";
 
-export default function Navigation() {
+export const Navigation = () => {
   const pathname = usePathname();
   const segments = useSegments();
   const isActive = useCallback(
@@ -40,7 +40,7 @@ export default function Navigation() {
       </Link>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

@@ -1,7 +1,8 @@
 import { View, Text } from "react-native";
 import { Stack } from "expo-router";
 import { Colors } from "@/assets/colors/colors";
-const Header = ({
+
+export const Header = ({
   title,
   canGoBack,
 }: {
@@ -24,5 +25,3 @@ const Header = ({
     />
   );
 };
-
-export default Header;

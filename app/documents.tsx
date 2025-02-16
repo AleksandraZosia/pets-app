@@ -1,7 +1,6 @@
-import { View, Text } from "react-native";
-import Navigation from "@/components/navigation/Navigation";
-import Header from "@/components/header/Header";
-import DefaultPage from "@/components/page/DefaultPage";
+import { Text } from "react-native";
+import { DefaultPage, Header } from "@/components";
+
 export default function Documents() {
   return (
     <DefaultPage>
