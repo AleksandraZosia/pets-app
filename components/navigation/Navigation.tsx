@@ -1,13 +1,10 @@
-import {
-  Link,
-  RelativePathString,
-  usePathname,
-  useSegments,
-} from "expo-router";
 import React, { useCallback } from "react";
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, StyleSheet } from "react-native";
+import { Link, usePathname, useSegments } from "expo-router";
+import RocketIcon from "@/assets/icons/rocket.svg";
+import PawIcon from "@/assets/icons/paw.svg";
+import FileIcon from "@/assets/icons/file.svg";
 import { Colors } from "@/assets/colors/colors";
-import { StyleSheet } from "react-native";
 import paths from "@/consts";
 
 export const Navigation = () => {
@@ -23,19 +20,22 @@ export const Navigation = () => {
     <View style={styles.container}>
       <Link href={`/${paths.home}`} replace asChild>
         <Pressable style={isActive(paths.home) ? styles.activeTab : styles.tab}>
-          <Text>Start</Text>
+          <RocketIcon />
+          <Text style={styles.text}>Start</Text>
         </Pressable>
       </Link>
       <Link href={`/${paths.pets}`} replace asChild>
         <Pressable style={isActive(paths.pets) ? styles.activeTab : styles.tab}>
-          <Text>Zwierzaki</Text>
+          <PawIcon />
+          <Text style={styles.text}>Zwierzaki</Text>
         </Pressable>
       </Link>
       <Link href={`/${paths.documents}`} replace asChild>
         <Pressable
           style={isActive(paths.documents) ? styles.activeTab : styles.tab}
         >
-          <Text>Dokumenty</Text>
+          <FileIcon />
+          <Text style={styles.text}>Dokumenty</Text>
         </Pressable>
       </Link>
     </View>
@@ -49,18 +49,29 @@ const styles = StyleSheet.create({
   },
   tab: {
     backgroundColor: Colors.yellowMain,
-    padding: 10,
+    paddingVertical: 9.5,
     flex: 1,
     flexGrow: 1,
     flexDirection: "column",
     alignItems: "center",
+    alignContent: "center",
+    justifyContent: "center",
+    gap: 4,
   },
   activeTab: {
     backgroundColor: Colors.yellowSecondary,
-    padding: 10,
+    paddingVertical: 9.5,
     flex: 1,
     flexGrow: 1,
     flexDirection: "column",
     alignItems: "center",
+    gap: 4,
+    alignContent: "center",
+    justifyContent: "center",
+  },
+  text: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: Colors.white,
   },
 });
