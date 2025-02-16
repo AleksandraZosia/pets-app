@@ -1,12 +1,13 @@
 import { View, StyleSheet } from "react-native";
 import { Navigation } from "../navigation";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export const DefaultPage = ({ children }: { children: React.ReactNode }) => {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       {children}
       <Navigation />
-    </View>
+    </SafeAreaView>
   );
 };
 
