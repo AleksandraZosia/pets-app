@@ -18,6 +18,7 @@ export const Header = ({
           color: Colors.black,
           fontWeight: 400,
           fontSize: 24,
+          fontFamily: "Lalezar-Regular",
         },
         headerStyle: { backgroundColor: Colors.yellowBackground },
         headerBackVisible: !!canGoBack,
