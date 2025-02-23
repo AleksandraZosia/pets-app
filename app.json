@@ -9,9 +9,11 @@
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "userInterfaceStyle": "light"
     },
     "android": {
+      "userInterfaceStyle": "light",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#FFFEFC"
@@ -35,7 +37,8 @@
         }
       ],
       "expo-font",
-      "expo-asset"
+      "expo-asset",
+      ["./plugins/withDisableForcedDarkModeAndroid.js", "disable-forced-dark-mode"]
     ],
     "experiments": {
       "typedRoutes": true
