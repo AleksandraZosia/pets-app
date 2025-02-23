@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Appearance } from "react-native";
 import { Navigation } from "../navigation";
 import { SafeAreaView } from "react-native-safe-area-context";
 
