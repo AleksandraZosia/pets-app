@@ -4,8 +4,7 @@ import { Link, usePathname, useSegments } from "expo-router";
 import RocketIcon from "@/assets/icons/rocket.svg";
 import PawIcon from "@/assets/icons/paw.svg";
 import FileIcon from "@/assets/icons/file.svg";
-import { Colors } from "@/assets/colors/colors";
-import paths from "@/consts";
+import { COLORS, PATHS } from "@/consts";
 
 export const Navigation = () => {
   const pathname = usePathname();
@@ -18,21 +17,21 @@ export const Navigation = () => {
   );
   return (
     <View style={styles.container}>
-      <Link href={`/${paths.home}`} replace asChild>
-        <Pressable style={isActive(paths.home) ? styles.activeTab : styles.tab}>
+      <Link href={`/${PATHS.HOME}`} replace asChild>
+        <Pressable style={isActive(PATHS.HOME) ? styles.activeTab : styles.tab}>
           <RocketIcon />
           <Text style={styles.text}>Start</Text>
         </Pressable>
       </Link>
-      <Link href={`/${paths.pets}`} replace asChild>
-        <Pressable style={isActive(paths.pets) ? styles.activeTab : styles.tab}>
+      <Link href={`/${PATHS.PETS}`} replace asChild>
+        <Pressable style={isActive(PATHS.PETS) ? styles.activeTab : styles.tab}>
           <PawIcon />
           <Text style={styles.text}>Zwierzaki</Text>
         </Pressable>
       </Link>
-      <Link href={`/${paths.documents}`} replace asChild>
+      <Link href={`/${PATHS.DOCUMENTS}`} replace asChild>
         <Pressable
-          style={isActive(paths.documents) ? styles.activeTab : styles.tab}
+          style={isActive(PATHS.DOCUMENTS) ? styles.activeTab : styles.tab}
         >
           <FileIcon />
           <Text style={styles.text}>Dokumenty</Text>
@@ -48,7 +47,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   tab: {
-    backgroundColor: Colors.yellowMain,
+    backgroundColor: COLORS.YELLOW_MAIN,
     paddingVertical: 9.5,
     flex: 1,
     flexGrow: 1,
@@ -59,7 +58,7 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   activeTab: {
-    backgroundColor: Colors.yellowSecondary,
+    backgroundColor: COLORS.YELLOW_SECONDARY,
     paddingVertical: 9.5,
     flex: 1,
     flexGrow: 1,
@@ -72,7 +71,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 14,
     fontWeight: 400,
-    color: Colors.white,
+    color: COLORS.WHITE,
     fontFamily: "Lalezar-Regular",
   },
 });
