@@ -1,4 +1,4 @@
-import { Colors } from "@/assets/colors/colors";
+import { COLORS } from "@/consts";
 import React from "react";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 
@@ -29,7 +29,7 @@ export const Button = ({
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: Colors.black,
+    backgroundColor: COLORS.BLACK,
     padding: 10,
     borderRadius: 100,
     paddingHorizontal: 19,
@@ -41,15 +41,15 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   buttonText: {
-    color: Colors.white,
+    color: COLORS.WHITE,
     fontSize: 14,
     fontWeight: "400",
   },
   buttonSecondary: {
-    backgroundColor: Colors.white,
+    backgroundColor: COLORS.WHITE,
     padding: 10,
     borderWidth: 1,
-    borderColor: Colors.black,
+    borderColor: COLORS.BLACK,
     borderRadius: 100,
     paddingHorizontal: 19,
     paddingVertical: 13,
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   buttonSecondaryText: {
-    color: Colors.black,
+    color: COLORS.BLACK,
     fontSize: 14,
     fontWeight: "400",
   },

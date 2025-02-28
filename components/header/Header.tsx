@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 import { Stack } from "expo-router";
-import { Colors } from "@/assets/colors/colors";
+import { COLORS } from "@/consts";
 
 export const Header = ({
   title,
@@ -15,12 +15,12 @@ export const Header = ({
         headerShown: true,
         headerTitle: title,
         headerTitleStyle: {
-          color: Colors.black,
+          color: COLORS.BLACK,
           fontWeight: 400,
           fontSize: 24,
           fontFamily: "Lalezar-Regular",
         },
-        headerStyle: { backgroundColor: Colors.yellowBackground },
+        headerStyle: { backgroundColor: COLORS.YELLOW_BACKGROUND },
         headerBackVisible: !!canGoBack,
       }}
     />

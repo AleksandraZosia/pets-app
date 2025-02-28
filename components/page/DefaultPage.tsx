@@ -1,7 +1,8 @@
 import { StyleSheet } from "react-native";
 import { Navigation } from "../navigation";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Colors } from "@/assets/colors/colors";
+import { COLORS } from "@/consts";
+
 export const DefaultPage = ({ children }: { children: React.ReactNode }) => {
   return (
     <SafeAreaView style={styles.container}>
@@ -17,6 +18,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "stretch",
     flexDirection: "column",
-    backgroundColor: Colors.yellowBackground,
+    backgroundColor: COLORS.YELLOW_BACKGROUND,
   },
 });

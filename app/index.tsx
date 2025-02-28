@@ -1,8 +1,7 @@
 import { Text, View } from "react-native";
 
-import { Link } from "expo-router";
 import { DefaultPage, Button } from "@/components";
-import { Colors } from "@/assets/colors/colors";
+import { COLORS } from "@/consts";
 
 export default function Index() {
   return (
@@ -22,12 +21,12 @@ export default function Index() {
           <Text style={{ fontSize: 20, fontWeight: "400" }}>Event 2</Text>
           <Text style={{ fontSize: 20, fontWeight: "400" }}>Event 3</Text>
         </View>
-        <Text style={{ color: Colors.yellowSecondary }}>+ Pokaż więcej</Text>
+        <Text style={{ color: COLORS.YELLOW_SECONDARY }}>+ Pokaż więcej</Text>
       </View>
       <View
         style={{
           gap: 16,
-          backgroundColor: Colors.white,
+          backgroundColor: COLORS.WHITE,
           flex: 1,
           padding: 16,
         }}
