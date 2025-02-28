@@ -2,6 +2,7 @@ import { Text, View } from "react-native";
 
 import { DefaultPage, Button } from "@/components";
 import { COLORS } from "@/consts";
+import { router } from "expo-router";
 
 export default function Index() {
   return (
@@ -34,15 +35,11 @@ export default function Index() {
         <Button
           title="+ Dodaj wydarzenie"
           onPress={() => {
-            console.log("pet");
+            router.push("/new-event");
           }}
         />
-        <Button
-          title="+ Dodaj dokument"
-          onPress={() => {
-            console.log("pet");
-          }}
-        />
+
+        <Button title="+ Dodaj dokument" onPress={() => {}} />
       </View>
     </DefaultPage>
   );
