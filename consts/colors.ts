@@ -5,4 +5,5 @@ export const COLORS = {
   WHITE: "#FFFEFC",
   BLACK: "#333333",
   BLACK_SECONDARY: "#707070",
+  GRAY_SOFT: "#A2A2A2",
 };

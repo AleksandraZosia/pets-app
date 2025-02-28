@@ -33,7 +33,7 @@ export const Navigation = () => {
         <Pressable
           style={isActive(PATHS.DOCUMENTS) ? styles.activeTab : styles.tab}
         >
-          <FileIcon />
+          <FileIcon fill={COLORS.WHITE} width={22} height={29} />
           <Text style={styles.text}>Dokumenty</Text>
         </Pressable>
       </Link>
