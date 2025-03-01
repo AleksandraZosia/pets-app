@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { Stack, router } from "expo-router";
 import { COLORS } from "@/consts";
+import { HeaderRight } from "./HeaderRight";
 
 export const Header = ({
   title,
@@ -18,34 +19,10 @@ export const Header = ({
       options={{
         headerShown: true,
         header: () => (
-          <View
-            style={{
-              backgroundColor: COLORS.YELLOW_BACKGROUND,
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              paddingVertical: 21,
-              paddingHorizontal: 12,
-              shadowColor: COLORS.BLACK,
-              shadowOffset: { width: 0, height: 2 },
-              shadowOpacity: 0.2,
-              shadowRadius: 8,
-              elevation: 8,
-            }}
-          >
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                gap: 3,
-                alignContent: "center",
-              }}
-            >
+          <View style={styles.headerContainer}>
+            <View style={styles.headerLeftContainer}>
               {canGoBack && (
-                <Pressable
-                  onPress={() => router.back()}
-                  hitSlop={{ top: 14, bottom: 14, left: 14, right: 14 }}
-                >
+                <Pressable onPress={() => router.back()} hitSlop={14}>
                   <Text style={styles.text}>{`<`}</Text>
                 </Pressable>
               )}
@@ -53,9 +30,10 @@ export const Header = ({
               <Text style={styles.text}>{title}</Text>
             </View>
             {HeaderRightTitle ? (
-              <Pressable onPress={handleHeaderRightPress}>
-                <Text style={styles.text}>{HeaderRightTitle}</Text>
-              </Pressable>
+              <HeaderRight
+                headerRightTitle={HeaderRightTitle}
+                handleHeaderRightPress={handleHeaderRightPress}
+              />
             ) : null}
           </View>
         ),
@@ -65,6 +43,25 @@ export const Header = ({
 };
 
 const styles = StyleSheet.create({
+  headerContainer: {
+    backgroundColor: COLORS.YELLOW_BACKGROUND,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingVertical: 21,
+    paddingHorizontal: 12,
+    shadowColor: COLORS.BLACK,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 8,
+  },
+  headerLeftContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 3,
+    alignContent: "center",
+  },
   text: {
     color: COLORS.BLACK,
     fontWeight: 400,
