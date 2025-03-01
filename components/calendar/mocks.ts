@@ -1,10 +1,139 @@
-export const mockAgenda = {
-  "2025-02-23": [
-    { title: "Item 1", notes: "Notes", height: 100, day: "2025-02-23" },
-    { title: "Item 2", notes: "Notes", height: 100, day: "2025-02-23" },
-  ],
-  "2025-02-24": [
-    { title: "Item 3", notes: "Notes", height: 100, day: "2025-02-24" },
-    { title: "Item 4", notes: "Notes", height: 100, day: "2025-02-24" },
-  ],
-};
+const today = new Date().toISOString().split("T")[0];
+const pastDate = getPastDate(3);
+const futureDates = getFutureDates(12);
+const dates = [pastDate, today].concat(futureDates);
+
+function getFutureDates(numberOfDays: number) {
+  const array: string[] = [];
+  for (let index = 1; index <= numberOfDays; index++) {
+    let d = Date.now();
+    if (index > 8) {
+      // set dates on the next month
+      const newMonth = new Date(d).getMonth() + 1;
+      d = new Date(d).setMonth(newMonth);
+    }
+    const date = new Date(d + 864e5 * index); // 864e5 == 86400000 == 24*60*60*1000
+    const dateString = date.toISOString().split("T")[0];
+    array.push(dateString);
+  }
+  return array;
+}
+function getPastDate(numberOfDays: number) {
+  return new Date(Date.now() - 864e5 * numberOfDays)
+    .toISOString()
+    .split("T")[0];
+}
+
+export const agendaItems = [
+  {
+    title: dates[0],
+    data: [
+      { hour: "10:00", title: "USG brzuszka", date: dates[0], type: "badania" },
+      {
+        hour: "11:00",
+        duration: "1h",
+        title: "Kromka",
+        itemCustomHeightType: "LongEvent",
+        date: dates[0],
+        type: "wizyta",
+      },
+    ],
+  },
+  {
+    title: dates[1],
+    data: [
+      { hour: "10:00", title: "USG brzuszka", date: dates[1], type: "badania" },
+      {
+        hour: "11:00",
+        duration: "1h",
+        title: "Wizyta u lekarza",
+        date: dates[1],
+        type: "szcZepienie",
+      },
+    ],
+  },
+  {
+    title: dates[2],
+    data: [
+      { hour: "10:00", title: "USG brzuszka", date: dates[2] },
+      { hour: "11:00", duration: "1h", title: "Sztuczki ABC", date: dates[2] },
+    ],
+  },
+  {
+    title: dates[3],
+    data: [
+      { hour: "10:00", title: "USG brzuszka", date: dates[3], type: "badania" },
+      {
+        hour: "11:00",
+        duration: "1h",
+        title: "Sztuczki ABC",
+        date: dates[3],
+        type: "wizyta",
+      },
+    ],
+  },
+  {
+    title: dates[4],
+    data: [{}],
+  },
+  {
+    title: dates[5],
+    data: [
+      { hour: "10:00", title: "USG brzuszka", date: dates[5] },
+      { hour: "11:00", duration: "1h", title: "Sztuczki ABC", date: dates[5] },
+      { hour: "12:00", duration: "1h", title: "Sztuczki ABC", date: dates[5] },
+      {
+        hour: "12pm",
+        duration: "1h",
+        title: "Running Group",
+        description: "Running Group",
+        date: dates[5],
+      },
+    ],
+  },
+  {
+    title: dates[6],
+    data: [{ hour: "12am", duration: "1h", title: "Aport" }],
+  },
+  {
+    title: dates[7],
+    data: [{}],
+  },
+  {
+    title: dates[8],
+    data: [
+      { hour: "9pm", duration: "1h", title: "Sztuczki Reformer" },
+      { hour: "10pm", duration: "1h", title: "Aport" },
+      { hour: "11pm", duration: "1h", title: "TRX" },
+      { hour: "12pm", duration: "1h", title: "Running Group" },
+    ],
+  },
+  {
+    title: dates[9],
+    data: [
+      { hour: "1pm", duration: "1h", title: "Aport" },
+      { hour: "2pm", duration: "1h", title: "Odrobaczanie" },
+      { hour: "3pm", duration: "1h", title: "Obcinanie pazurków" },
+    ],
+  },
+  {
+    title: dates[10],
+    data: [{ hour: "12am", duration: "1h", title: "Mycie zębów" }],
+  },
+  {
+    title: dates[11],
+    data: [
+      { hour: "1pm", duration: "1h", title: "Aport" },
+      { hour: "2pm", duration: "1h", title: "Odrobaczanie" },
+      { hour: "3pm", duration: "1h", title: "Obcinanie pazurków" },
+    ],
+  },
+  {
+    title: dates[12],
+    data: [{ hour: "12am", duration: "1h", title: "Mycie zębów" }],
+  },
+  {
+    title: dates[13],
+    data: [{ hour: "12am", duration: "1h", title: "Mycie zębów" }],
+  },
+];
