@@ -5,7 +5,7 @@ import DateTimePicker, {
 import { useCallback, useState } from "react";
 
 export const useIOSDatePicker = () => {
-  const [date, setDate] = useState(new Date(1598051730000));
+  const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState<"date" | "time" | "datetime" | "countdown">(
     "date"
   );

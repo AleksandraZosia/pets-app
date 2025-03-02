@@ -1,39 +1,49 @@
-import { TextInput, StyleSheet, View, Text } from "react-native";
+import { TextInput, StyleSheet, View, Text, Pressable } from "react-native";
+import DocumentIcon from "@/assets/icons/file.svg";
 import { COLORS } from "@/consts";
 
-interface InputProps {
+interface DateTimePickerProps {
   label: string;
-  placeholder: string;
-  value: string;
-  onChangeText: (text: string) => void;
-  asTextArea?: boolean;
+  placeholder?: string;
+  onPress?: () => void;
+  onChangeText?: (text: string) => void;
+  readOnly?: boolean;
+  value?: string;
 }
 
-export const Input = ({
+export const DateTimePicker = ({
   label,
   placeholder,
+  onPress,
+  readOnly = false,
   value,
   onChangeText,
-  asTextArea = false,
-}: InputProps) => {
+}: DateTimePickerProps) => {
   return (
-    <View style={{ flexDirection: "column", gap: 8 }}>
+    <View style={styles.wrapper}>
       <Text style={styles.label}>{label}</Text>
-      <View style={styles.container}>
+      <Pressable style={styles.container} onPress={onPress}>
         <TextInput
-          style={asTextArea ? [styles.textArea, styles.input] : styles.input}
+          style={styles.input}
           placeholder={placeholder}
           placeholderTextColor={COLORS.GRAY_SOFT}
           selectionColor={COLORS.YELLOW_MAIN}
+          readOnly={readOnly}
           value={value}
+          editable={!readOnly}
           onChangeText={onChangeText}
         />
-      </View>
+        <DocumentIcon fill={COLORS.BLACK} width={20} height={20} />
+      </Pressable>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  wrapper: {
+    gap: 8,
+    flex: 1,
+  },
   container: {
     backgroundColor: COLORS.WHITE,
     borderColor: COLORS.GRAY_SOFT,
@@ -44,6 +54,9 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "400",
     color: COLORS.BLACK,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   label: {
     fontSize: 14,
@@ -57,9 +70,5 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     fontFamily: "Roboto-Regular",
     color: COLORS.BLACK,
-  },
-  textArea: {
-    minHeight: 100,
-    textAlignVertical: "top",
   },
 });
