@@ -8,6 +8,7 @@ export default function Index() {
   const { date, showDatepicker, showTimepicker, datePicker } = useDatePicker();
   return (
     <DefaultPage>
+      {datePicker && datePicker()}
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <Text>space for native calendar</Text>
       </View>
