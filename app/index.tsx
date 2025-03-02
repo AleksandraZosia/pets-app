@@ -1,14 +1,11 @@
 import { Text, View } from "react-native";
 
-import { DefaultPage, Button, InputWithIcon } from "@/components";
+import { DefaultPage, Button } from "@/components";
 import { COLORS } from "@/consts";
-import { useDatePicker } from "@/modules/date-picker/useDatePicker";
 
 export default function Index() {
-  const { date, showDatepicker, showTimepicker, datePicker } = useDatePicker();
   return (
     <DefaultPage>
-      {datePicker && datePicker()}
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <Text>space for native calendar</Text>
       </View>
@@ -34,23 +31,6 @@ export default function Index() {
           padding: 16,
         }}
       >
-        <View style={{ flexDirection: "row", gap: 16 }}>
-          <InputWithIcon
-            label="Data"
-            placeholder="20.02.2025"
-            onPress={showDatepicker}
-            value={date.toLocaleDateString()}
-            readOnly={true}
-          />
-          <InputWithIcon
-            label="Godzina"
-            placeholder="12:00"
-            onPress={showTimepicker}
-            value={date.toLocaleTimeString()}
-            readOnly={true}
-          />
-        </View>
-
         <Button
           title="+ Dodaj wydarzenie"
           onPress={() => {
