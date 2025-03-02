@@ -1,12 +1,21 @@
 import { Text, View } from "react-native";
-
-import { DefaultPage, Button } from "@/components";
+import { useState } from "react";
+import { DefaultPage, Button, AddDocumentModal } from "@/components";
 import { COLORS } from "@/consts";
 import { router } from "expo-router";
 
 export default function Index() {
+  const [addDocumentModalVisible, setAddDocumentModalVisible] = useState(false);
+
   return (
     <DefaultPage>
+      <AddDocumentModal
+        visible={addDocumentModalVisible}
+        onClose={() => setAddDocumentModalVisible(false)}
+        onAddFile={() => {}}
+        onOpenCamera={() => {}}
+      />
+
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <Text>space for native calendar</Text>
       </View>
@@ -38,8 +47,12 @@ export default function Index() {
             router.push("/new-event");
           }}
         />
-
-        <Button title="+ Dodaj dokument" onPress={() => {}} />
+        <Button
+          title="+ Dodaj dokument"
+          onPress={() => {
+            setAddDocumentModalVisible(true);
+          }}
+        />
       </View>
     </DefaultPage>
   );
