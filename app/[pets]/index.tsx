@@ -1,14 +1,39 @@
-import { DefaultPage, Header } from "@/components";
-import { Link } from "expo-router";
-import { Text } from "react-native";
+import { DefaultPage, Header, PetItem } from "@/components";
+import { router } from "expo-router";
+import { View, StyleSheet } from "react-native";
 
 export default function Pets() {
   return (
     <DefaultPage>
       <Header title="Zwierzaki" />
-      <Link asChild href="/pets/pet/1">
-        <Text>This is link to pet screen on pets screen</Text>
-      </Link>
+      <View style={styles.container}>
+        <PetItem
+          onPress={() => router.push("/pets/pet/1")}
+          petPhoto={require("@/assets/images/Kromka.png")}
+          petName="Kromka"
+          petAge={2}
+        />
+        <PetItem
+          onPress={() => router.push("/pets/pet/2")}
+          petPhoto={require("@/assets/images/Kromka.png")}
+          petName="Chleb"
+          petAge={1}
+        />
+        <PetItem
+          onPress={() => router.push("/pets/pet/3")}
+          petPhoto={require("@/assets/images/Kromka.png")}
+          petName="Chałka"
+          petAge={6}
+        />
+      </View>
     </DefaultPage>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    gap: 16,
+    paddingHorizontal: 8,
+    paddingVertical: 25,
+  },
+});
