@@ -8,17 +8,38 @@ import {
 } from "@/components";
 import { COLORS } from "@/consts";
 import { router } from "expo-router";
-
+import { ImagePickerAsset, launchCameraAsync } from "expo-image-picker";
 export default function Index() {
   const [addDocumentModalVisible, setAddDocumentModalVisible] = useState(false);
+  const [newImage, setNewImage] = useState<ImagePickerAsset | null>(null);
 
   return (
     <DefaultPage>
       <AddDocumentModal
         visible={addDocumentModalVisible}
         onClose={() => setAddDocumentModalVisible(false)}
-        onAddFile={() => {}}
-        onOpenCamera={() => {}}
+        onAddFile={() => router.push("/new-document")}
+        onOpenCamera={async () => {
+          const result = await launchCameraAsync({
+            mediaTypes: ["images"],
+            aspect: [1, 1],
+          });
+
+          if (result.canceled) return;
+          setNewImage(result.assets?.[0] ?? null);
+
+          router.push({
+            pathname: "/new-document",
+            params: {
+              imageUri: result.assets?.[0].uri,
+              type: result.assets?.[0].mimeType,
+              name: result.assets?.[0].fileName,
+              size: result.assets?.[0].fileSize,
+              assetId: result.assets?.[0].assetId,
+            },
+          });
+          // `/new-document?imageUri=${newImage?.uri}&type=${newImage?.mimeType}&name=${newImage?.fileName}&size=${newImage?.fileSize}&assetId=${newImage?.assetId}`
+        }}
       />
 
       <View
