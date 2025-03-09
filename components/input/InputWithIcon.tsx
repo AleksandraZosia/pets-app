@@ -40,7 +40,6 @@ export const InputWithIcon = ({
 const styles = StyleSheet.create({
   wrapper: {
     gap: 8,
-    flex: 1,
   },
   container: {
     backgroundColor: COLORS.WHITE,
