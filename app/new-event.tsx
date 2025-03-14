@@ -9,6 +9,7 @@ import {
   Button,
 } from "@/components";
 import { useDatePicker } from "@/modules";
+import { getDocumentAsync, DocumentPickerAsset } from "expo-document-picker";
 
 export default function NewEvent() {
   const [eventName, setEventName] = useState("");
@@ -17,7 +18,15 @@ export default function NewEvent() {
   const [place, setPlace] = useState("");
   const [comment, setComment] = useState("");
   const { date, showDatepicker, showTimepicker, datePicker } = useDatePicker();
+  const [file, setFile] = useState<DocumentPickerAsset | null>(null);
+  const pickFile = async () => {
+    let result = await getDocumentAsync({
+      type: ["application/pdf", "image/png", "image/jpeg"],
+    });
 
+    if (result.canceled) return;
+    setFile(result.assets[0]);
+  };
   return (
     <PageWithoutNavigation>
       <Header
@@ -48,7 +57,7 @@ export default function NewEvent() {
             readOnly={true}
           />
           <DateTimePicker
-            label="Czas"
+            label="Godzina"
             value={date.toLocaleTimeString()}
             onPress={showTimepicker}
             readOnly={true}
@@ -79,7 +88,7 @@ export default function NewEvent() {
           onChangeText={setComment}
           asTextArea={true}
         />
-        <Button title="+ Załącz dokument" onPress={() => {}} />
+        <Button title="+ Załącz dokument" onPress={pickFile} />
       </ScrollView>
     </PageWithoutNavigation>
   );

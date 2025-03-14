@@ -36,6 +36,14 @@
           "backgroundColor": "#FFFEFC"
         }
       ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Aplikacja ma dostęp do Twoich zdjęć w celu dodania ich do profilu Twojego pupila.",
+          "cameraPermission": "Aplikacja ma dostęp do Twojej kamery w celu dodania zdjęć do profilu Twojego pupila."
+        }
+      ],      
+      "expo-document-picker",       
       "expo-font",
       "expo-asset",
       ["./plugins/withDisableForcedDarkModeAndroid.js", "disable-forced-dark-mode"]
