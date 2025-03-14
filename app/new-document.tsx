@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import { DocumentPickerAsset, getDocumentAsync } from "expo-document-picker";
+import { File, Paths } from "expo-file-system/next";
 
 import {
   Header,
@@ -43,9 +44,16 @@ export default function NewDocument() {
   }, [name]);
 
   const handleSave = () => {
-    // TODO: Save the new picture in file system (may need to get it from cache(?))
     // TODO: Save the new document in the database (realm) once it's ready
-    console.log("save");
+    let uri = file?.uri;
+    if (!file) {
+      const file = new File(Paths.cache, name ?? "");
+      file.create();
+
+      file.move(Paths.document);
+
+      uri = file.uri;
+    }
   };
 
   return (
