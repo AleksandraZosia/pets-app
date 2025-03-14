@@ -1,6 +1,11 @@
 import { Text, View } from "react-native";
 import { useState } from "react";
-import { DefaultPage, Button, AddDocumentModal } from "@/components";
+import {
+  DefaultPage,
+  Button,
+  AddDocumentModal,
+  CalendarWithAgenda,
+} from "@/components";
 import { COLORS } from "@/consts";
 import { router } from "expo-router";
 
@@ -16,21 +21,17 @@ export default function Index() {
         onOpenCamera={() => {}}
       />
 
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text>space for native calendar</Text>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: 150,
+        }}
+      >
+        <CalendarWithAgenda />
       </View>
       <View style={{ padding: 16, gap: 16 }}>
-        <View
-          style={{
-            gap: 12,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Text style={{ fontSize: 20, fontWeight: "400" }}>Event 1</Text>
-          <Text style={{ fontSize: 20, fontWeight: "400" }}>Event 2</Text>
-          <Text style={{ fontSize: 20, fontWeight: "400" }}>Event 3</Text>
-        </View>
         <Text style={{ color: COLORS.YELLOW_SECONDARY }}>+ Pokaż więcej</Text>
       </View>
       <View
