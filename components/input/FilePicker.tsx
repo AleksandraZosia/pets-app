@@ -1,12 +1,5 @@
-import React, { useRef, useState } from "react";
-import {
-  Text,
-  Pressable,
-  View,
-  StyleSheet,
-  TextInput,
-  GestureResponderEvent,
-} from "react-native";
+import React from "react";
+import { Text, Pressable, View, StyleSheet, TextInput } from "react-native";
 import { COLORS } from "@/consts";
 
 interface FilePickerProps {

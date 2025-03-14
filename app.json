@@ -39,8 +39,8 @@
       [
         "expo-image-picker",
         {
-          "photosPermission": "The app accesses your photos to let you add them to your pet profile.",
-          "cameraPermission": "The app accesses your camera to let you add them to your pet profile."
+          "photosPermission": "Aplikacja ma dostęp do Twoich zdjęć w celu dodania ich do profilu Twojego pupila.",
+          "cameraPermission": "Aplikacja ma dostęp do Twojej kamery w celu dodania zdjęć do profilu Twojego pupila."
         }
       ],      
       "expo-document-picker",       
