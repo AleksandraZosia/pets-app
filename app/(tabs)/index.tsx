@@ -38,7 +38,6 @@ export default function Index() {
               assetId: result.assets?.[0].assetId,
             },
           });
-          // `/new-document?imageUri=${newImage?.uri}&type=${newImage?.mimeType}&name=${newImage?.fileName}&size=${newImage?.fileSize}&assetId=${newImage?.assetId}`
         }}
       />
 

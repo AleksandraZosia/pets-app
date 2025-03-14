@@ -1,1 +1,3 @@
-export * from "./Navigation";
+export * from "./TabBarButton";
+export * from "./TabBarLabel";
+export * from "./DocumentsIcon";
