@@ -9,12 +9,13 @@ import {
 import DogIcon from "../../assets/icons/dog.svg";
 import { COLORS } from "@/consts";
 import { useCallback } from "react";
-
+import { SvgProps } from "react-native-svg";
 interface PetItemProps {
   onPress: () => void;
   petPhoto: string;
   petName: string;
   petAge: number;
+  Icon: React.FC<SvgProps>;
 }
 
 export const PetItem = ({
@@ -22,6 +23,7 @@ export const PetItem = ({
   petPhoto,
   petName,
   petAge,
+  Icon,
 }: PetItemProps) => {
   const formattedPetAge = useCallback(() => {
     if (petAge === 1) {
@@ -60,7 +62,7 @@ export const PetItem = ({
           <Text style={styles.petAge}>{formattedPetAge()}</Text>
         </View>
       </View>
-      <DogIcon />
+      <Icon />
     </TouchableOpacity>
   );
 };

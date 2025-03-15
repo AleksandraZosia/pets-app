@@ -10,14 +10,31 @@ import {
 import { Item } from "../item";
 import { COLORS } from "@/consts";
 
-import { agendaItems } from "./mocks";
 import LocaleConfig from "./LocaleConfig";
 import { getDateData, getMonthName } from "@/helpers/dateFunctions";
 import { capitalize } from "@/helpers/stringFunctions";
 import { THEME } from "./theme";
+import { eventsCalendar } from "@/consts/mocks/events";
+import { mapEventTypes } from "@/mappers/mapEventTypes";
 
 const MemoizedItem = memo(Item);
 const MemoizedSeparator = memo(() => <View style={styles.separator} />);
+
+const renderItem = ({ item }: any) => {
+  return (
+    <MemoizedItem
+      time={item?.timeString}
+      title={item?.name}
+      description={item?.description}
+      type={mapEventTypes(item) ?? undefined}
+      date={item?.dateString}
+    />
+  );
+};
+
+const renderSeparator = () => {
+  return <MemoizedSeparator />;
+};
 
 export const CalendarWithAgenda = () => {
   // Get today's date in YYYY-MM-DD format
@@ -29,22 +46,6 @@ export const CalendarWithAgenda = () => {
   const formatedMonth = useMemo(() => {
     return capitalize(getMonthName(selectedDay?.month));
   }, [selectedDay?.month]);
-
-  const renderItem = useCallback(({ item }: any) => {
-    return (
-      <MemoizedItem
-        time={item?.hour}
-        title={item?.title}
-        description={item?.description}
-        type={item?.type}
-        date={item?.date}
-      />
-    );
-  }, []);
-
-  const renderSeparator = useCallback(() => {
-    return <MemoizedSeparator />;
-  }, []);
 
   return (
     <CalendarProvider
@@ -72,7 +73,7 @@ export const CalendarWithAgenda = () => {
       />
       <AgendaList
         renderItem={renderItem}
-        sections={agendaItems}
+        sections={eventsCalendar}
         renderSectionHeader={({ section }) => null}
         scrollToNextEvent
         sectionStyle={styles.section}
@@ -80,6 +81,11 @@ export const CalendarWithAgenda = () => {
           backgroundColor: COLORS.YELLOW_BACKGROUND,
           gap: 10,
           padding: 10,
+          shadowColor: COLORS.GRAY_SOFT,
+          shadowOffset: { width: 0, height: 2 },
+          shadowOpacity: 0.25,
+          shadowRadius: 3.84,
+          elevation: 5,
         }}
         ItemSeparatorComponent={renderSeparator}
         SectionSeparatorComponent={renderSeparator}
