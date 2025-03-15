@@ -1,5 +1,5 @@
-import { View, Text, Modal, Pressable, Alert, StyleSheet } from "react-native";
-import React, { useState } from "react";
+import { View, Modal, StyleSheet } from "react-native";
+import React from "react";
 import { COLORS } from "@/consts";
 
 interface ModalProps {
