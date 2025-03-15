@@ -14,3 +14,9 @@ export const getMonthName = (month?: number) => {
   if (!month) return "";
   return MONTHS[month - 1];
 };
+
+export const calculateAge = (birthDate: Date) => {
+  const today = new Date();
+  const age = today.getFullYear() - birthDate.getFullYear();
+  return age;
+};
