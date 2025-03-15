@@ -1,4 +1,4 @@
-import { DefaultPage, Header, PetItem } from "@/components";
+import { DefaultPage, Header, PetItem, Button } from "@/components";
 import { router } from "expo-router";
 import { View, StyleSheet } from "react-native";
 
@@ -26,6 +26,12 @@ export default function Pets() {
           petAge={6}
         />
       </View>
+      <View style={styles.buttonContainer}>
+        <Button
+          title="+ Dodaj zwierzaka"
+          onPress={() => router.push("/new-pet")}
+        />
+      </View>
     </DefaultPage>
   );
 }
@@ -35,5 +41,10 @@ const styles = StyleSheet.create({
     gap: 16,
     paddingHorizontal: 8,
     paddingVertical: 25,
+  },
+  buttonContainer: {
+    paddingHorizontal: 16,
+    paddingVertical: 25,
+    flex: 1,
   },
 });
