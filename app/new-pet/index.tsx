@@ -1,5 +1,5 @@
 import { Header, PageWithoutNavigation, SpeciesItem } from "@/components";
-import { species } from "@/consts/mocks/species";
+import { species } from "@/consts/species";
 import { Text, StyleSheet, View, ScrollView } from "react-native";
 export default function NewPet() {
   return (
