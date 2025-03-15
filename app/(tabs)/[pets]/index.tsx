@@ -1,4 +1,4 @@
-import { DefaultPage, Header, PetItem } from "@/components";
+import { DefaultPage, Header, PetItem, Button } from "@/components";
 import { pets } from "@/consts/mocks/pets";
 import { Pet } from "@/types";
 import { router } from "expo-router";
@@ -30,6 +30,12 @@ export default function Pets() {
           contentContainerStyle={styles.flatList}
         />
       </View>
+      <View style={styles.buttonContainer}>
+        <Button
+          title="+ Dodaj zwierzaka"
+          onPress={() => router.push("/new-pet")}
+        />
+      </View>
     </DefaultPage>
   );
 }
@@ -42,5 +48,10 @@ const styles = StyleSheet.create({
   },
   flatList: {
     gap: 16,
+  },
+  buttonContainer: {
+    paddingHorizontal: 16,
+    paddingVertical: 25,
+    flex: 1,
   },
 });
