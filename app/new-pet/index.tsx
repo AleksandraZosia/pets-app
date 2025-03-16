@@ -1,6 +1,9 @@
+import { Text, StyleSheet, View, ScrollView } from "react-native";
 import { Header, PageWithoutNavigation, SpeciesItem } from "@/components";
 import { species } from "@/consts/species";
-import { Text, StyleSheet, View, ScrollView } from "react-native";
+import { capitalize } from "@/helpers/stringFunctions";
+import { mapSpecies } from "@/mappers/mapSpecies";
+
 export default function NewPet() {
   return (
     <PageWithoutNavigation>
@@ -11,7 +14,7 @@ export default function NewPet() {
           {species.map((species) => (
             <SpeciesItem
               key={species.id}
-              name={species.name}
+              name={capitalize(mapSpecies(species.name))}
               Icon={species.avatar}
               onPress={() => {}}
               isSelected={false}

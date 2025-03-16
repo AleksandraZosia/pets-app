@@ -1,3 +1,5 @@
+import { SvgProps } from "react-native-svg";
+
 export type Pet = {
   id: string;
   name: string;
@@ -31,3 +33,9 @@ export type SpeciesTypes =
   | "horse";
 
 export type GenderTypes = "male" | "female";
+
+export type Species = {
+  id: number;
+  name: SpeciesTypes;
+  avatar: React.FC<SvgProps>;
+};
