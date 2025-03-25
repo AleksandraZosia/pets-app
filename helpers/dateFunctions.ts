@@ -1,5 +1,6 @@
 import { DateData } from "react-native-calendars";
 import { MONTHS } from "@/consts/dates";
+
 export const getDateData = (date: string): DateData => {
   return {
     dateString: date,

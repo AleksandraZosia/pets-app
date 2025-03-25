@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View } from "react-native";
+import { SectionList, StyleSheet, Text, View } from "react-native";
 
-import React, { useCallback, useState, useMemo, memo } from "react";
+import React, { useState, useMemo, memo } from "react";
 import {
   CalendarProvider,
   WeekCalendar,
@@ -36,11 +36,16 @@ const renderSeparator = () => {
   return <MemoizedSeparator />;
 };
 
-export const CalendarWithAgenda = () => {
+export const CalendarWithAgenda = ({ showAgenda }: { showAgenda: boolean }) => {
   // Get today's date in YYYY-MM-DD format
   const today = new Date().toISOString().split("T")[0];
   const [selectedDay, setSelectedDay] = useState<DateData | null>(
     getDateData(today)
+  );
+
+  const todaysAgenda = useMemo(
+    () => eventsCalendar.filter((ev) => ev.title === selectedDay?.dateString),
+    [selectedDay]
   );
 
   const formatedMonth = useMemo(() => {
@@ -71,27 +76,45 @@ export const CalendarWithAgenda = () => {
           setSelectedDay(day);
         }}
       />
-      <AgendaList
-        renderItem={renderItem}
-        sections={eventsCalendar}
-        renderSectionHeader={({ section }) => null}
-        scrollToNextEvent
-        sectionStyle={styles.section}
-        style={{
-          backgroundColor: COLORS.YELLOW_BACKGROUND,
-          gap: 10,
-          padding: 10,
-          shadowColor: COLORS.GRAY_SOFT,
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.25,
-          shadowRadius: 3.84,
-          elevation: 5,
-        }}
-        ItemSeparatorComponent={renderSeparator}
-        SectionSeparatorComponent={renderSeparator}
-        disableScrollViewPanResponder
-        removeClippedSubviews={true}
-      />
+      {showAgenda ? (
+        <AgendaList
+          renderItem={renderItem}
+          sections={eventsCalendar}
+          renderSectionHeader={({ section }) => null}
+          scrollToNextEvent
+          sectionStyle={styles.section}
+          style={{
+            backgroundColor: COLORS.YELLOW_BACKGROUND,
+            gap: 10,
+            padding: 10,
+            shadowColor: COLORS.GRAY_SOFT,
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+            elevation: 5,
+          }}
+          ItemSeparatorComponent={renderSeparator}
+          SectionSeparatorComponent={renderSeparator}
+          disableScrollViewPanResponder
+          removeClippedSubviews={true}
+        />
+      ) : (
+        <SectionList
+          renderItem={renderItem}
+          sections={todaysAgenda}
+          scrollEnabled={false}
+          contentContainerStyle={styles.section}
+          ItemSeparatorComponent={renderSeparator}
+          SectionSeparatorComponent={renderSeparator}
+          disableScrollViewPanResponder
+          removeClippedSubviews={true}
+          ListEmptyComponent={
+            <View style={styles.section}>
+              <Text>Nie masz żadnych wydarzeń na dzisiaj</Text>
+            </View>
+          }
+        />
+      )}
     </CalendarProvider>
   );
 };
@@ -100,9 +123,10 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     height: "100%",
+    flex: 1,
   },
   section: {
-    backgroundColor: COLORS.BLACK,
+    backgroundColor: COLORS.YELLOW_BACKGROUND,
     gap: 10,
     padding: 10,
   },
