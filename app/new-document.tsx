@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
-import { DocumentPickerAsset, getDocumentAsync } from "expo-document-picker";
 import { File, Paths } from "expo-file-system/next";
 
 import {
@@ -10,32 +9,18 @@ import {
   InputWithIcon,
   DateTimePicker,
 } from "@/components";
-import { FilePicker } from "@/components/input/FilePicker";
+
 import { useLocalSearchParams } from "expo-router";
 import { useDatePicker } from "@/modules/date-picker";
 
 export default function NewDocument() {
-  const [file, setFile] = useState<DocumentPickerAsset | null>(null);
   const [fileName, setFileName] = useState<string | null>(null);
   const [comment, setComment] = useState<string | null>(null);
   const { date, showDatepicker, showTimepicker, datePicker } = useDatePicker();
   const [animal, setAnimal] = useState<string | null>(null);
-  const { imageUri, type, name, size, assetId } = useLocalSearchParams<{
-    imageUri: string;
-    type: string;
+  const { name } = useLocalSearchParams<{
     name: string;
-    size: string;
-    assetId: string;
   }>();
-  const pickFile = async () => {
-    let result = await getDocumentAsync({
-      type: ["application/pdf", "image/png", "image/jpeg"],
-    });
-
-    if (result.canceled) return;
-    setFile(result.assets[0]);
-    setFileName(result.assets[0].name);
-  };
 
   useEffect(() => {
     if (name) {
@@ -45,15 +30,13 @@ export default function NewDocument() {
 
   const handleSave = () => {
     // TODO: Save the new document in the database (realm) once it's ready
-    let uri = file?.uri;
-    if (!file) {
-      const file = new File(Paths.cache, name ?? "");
-      file.create();
 
-      file.move(Paths.document);
+    const file = new File(Paths.cache, name ?? "");
+    file.create();
 
-      uri = file.uri;
-    }
+    file.move(Paths.document);
+
+    const uri = file.uri;
   };
 
   return (
@@ -71,13 +54,11 @@ export default function NewDocument() {
           gap: 24,
         }}
       >
-        <FilePicker
+        <Input
           label="Nazwa"
           placeholder="Nazwa_pliku_pobrana_automatycznie_edytowalna"
-          onPress={pickFile}
           onChangeText={(newName) => setFileName(newName)}
-          value={fileName ?? undefined}
-          readOnly={!fileName}
+          value={fileName ?? ""}
         />
         {/* TODO: Should be a dropdown with list of animals */}
         <InputWithIcon
