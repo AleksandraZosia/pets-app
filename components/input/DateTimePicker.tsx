@@ -1,5 +1,6 @@
 import { TextInput, StyleSheet, View, Text, Pressable } from "react-native";
-import DocumentIcon from "@/assets/icons/file.svg";
+import TimeIcon from "@/assets/icons/time.svg";
+import CalendarIcon from "@/assets/icons/calendar.svg";
 import { COLORS } from "@/consts";
 
 interface DateTimePickerProps {
@@ -9,6 +10,7 @@ interface DateTimePickerProps {
   onChangeText?: (text: string) => void;
   readOnly?: boolean;
   value?: string;
+  picksTime?: boolean;
 }
 
 export const DateTimePicker = ({
@@ -18,6 +20,7 @@ export const DateTimePicker = ({
   readOnly = false,
   value,
   onChangeText,
+  picksTime,
 }: DateTimePickerProps) => {
   return (
     <View style={styles.wrapper}>
@@ -33,7 +36,11 @@ export const DateTimePicker = ({
           editable={!readOnly}
           onChangeText={onChangeText}
         />
-        <DocumentIcon fill={COLORS.BLACK} width={20} height={20} />
+        {picksTime ? (
+          <TimeIcon fill={COLORS.BLACK} width={20} height={20} />
+        ) : (
+          <CalendarIcon width={20} height={20} />
+        )}
       </Pressable>
     </View>
   );

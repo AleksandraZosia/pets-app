@@ -61,6 +61,7 @@ export default function NewEvent() {
             value={date.toLocaleTimeString()}
             onPress={showTimepicker}
             readOnly={true}
+            picksTime
           />
         </View>
         <InputWithIcon
