@@ -1,8 +1,13 @@
 import React from "react";
+import { RealmProvider } from "@realm/react";
 import { Stack } from "expo-router";
 import { useFonts } from "expo-font";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import * as SplashScreen from "expo-splash-screen";
+import Pet from "@/models/pets/pet";
+import Event from "@/models/events/event";
+import Document from "@/models/documents/document";
+import CalendarGroup from "@/models/events/eventsInCalendar";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -25,11 +30,13 @@ export default function RootLayout() {
 
   return (
     <SafeAreaProvider>
-      <Stack
-        screenOptions={{
-          headerShown: false,
-        }}
-      />
+      <RealmProvider schema={[Pet, Event, Document, CalendarGroup]}>
+        <Stack
+          screenOptions={{
+            headerShown: false,
+          }}
+        />
+      </RealmProvider>
     </SafeAreaProvider>
   );
 }
