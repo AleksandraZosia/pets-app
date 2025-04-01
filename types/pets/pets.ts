@@ -4,6 +4,7 @@ export type Pet = {
   id: string;
   name: string;
   species: SpeciesTypes;
+  speciesName?: string;
   imageUri: string;
   gender: GenderTypes;
   breed?: string;
@@ -30,7 +31,8 @@ export type SpeciesTypes =
   | "lizard"
   | "snake"
   | "turtle"
-  | "horse";
+  | "horse"
+  | "other";
 
 export type GenderTypes = "male" | "female";
 
