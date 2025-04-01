@@ -7,6 +7,7 @@ export type Document = {
   petName: string;
   type: DocumentType;
   fileUri: string;
+  createdAt: Date;
 };
 
 export type DocumentType = "pdf" | "jpg" | "png" | "img" | "jpeg";

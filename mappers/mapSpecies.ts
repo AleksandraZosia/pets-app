@@ -30,5 +30,7 @@ export const mapSpecies = (species: SpeciesTypes) => {
       return "żółw";
     case "horse":
       return "koń";
+    case "other":
+      return "inne";
   }
 };
