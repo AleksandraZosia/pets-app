@@ -1,4 +1,6 @@
 import Realm, { BSON } from "realm";
+import Event from "../events/event";
+import Document from "../documents/document";
 
 class Pet extends Realm.Object<Pet> {
   _id: BSON.ObjectId = new BSON.ObjectId();
@@ -10,8 +12,8 @@ class Pet extends Realm.Object<Pet> {
   breed?: string;
   color?: string;
   weight?: number;
-  documentsIds?: string[];
-  eventsIds?: string[];
+  documents?: Document[];
+  events?: Event[];
   birthDate!: Date;
 
   static schema: Realm.ObjectSchema = {
@@ -26,8 +28,18 @@ class Pet extends Realm.Object<Pet> {
       breed: "string?",
       color: "string?",
       weight: "float?",
-      documentsIds: "string[]?",
-      eventsIds: "string[]?",
+      documents: {
+        type: "list",
+        objectType: "Document",
+      },
+      events: {
+        type: "list",
+        objectType: "Event",
+      },
+      calendar: {
+        type: "list",
+        objectType: "CalendarGroup",
+      },
       birthDate: "date",
     },
     primaryKey: "_id",
