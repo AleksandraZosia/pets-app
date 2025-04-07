@@ -10,7 +10,10 @@ class CalendarGroup extends Realm.Object<CalendarGroup> {
     primaryKey: "title",
     properties: {
       title: "string",
-      data: "Event[]",
+      data: {
+        type: "list",
+        objectType: "Event",
+      },
     },
   };
 }

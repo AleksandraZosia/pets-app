@@ -30,7 +30,10 @@ export default function RootLayout() {
 
   return (
     <SafeAreaProvider>
-      <RealmProvider schema={[Pet, Event, Document, CalendarGroup]}>
+      <RealmProvider
+        deleteRealmIfMigrationNeeded
+        schema={[Pet, Event, Document, CalendarGroup]}
+      >
         <Stack
           screenOptions={{
             headerShown: false,

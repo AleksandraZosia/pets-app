@@ -23,7 +23,10 @@ class Document extends Realm.Object<Document> {
       petName: "string",
       type: "string", // This will store the DocumentType
       fileUri: "string",
-      createdAt: "date",
+      createdAt: {
+        type: "date",
+        default: () => new Date(),
+      },
     },
   };
 }
