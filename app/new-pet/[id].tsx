@@ -1,4 +1,5 @@
 import {
+  AddFileModal,
   Button,
   DateTimePicker,
   Header,
@@ -11,9 +12,19 @@ import { mapSpecies } from "@/mappers/mapSpecies";
 import { useDatePicker } from "@/modules";
 import { useAddPet } from "@/modules/new-pet/useAddPet";
 import { useGetSpeciesInfo } from "@/modules/new-pet/useGetSpeciesInfo";
-import { ScrollView, StyleSheet, View, Text, Pressable } from "react-native";
+import { useState } from "react";
+import {
+  ScrollView,
+  StyleSheet,
+  View,
+  Text,
+  Pressable,
+  Image,
+} from "react-native";
 
 export default function NewPetDetails() {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [forPhotos, setForPhotos] = useState(false);
   const { speciesId, speciesName, Icon, needsBreed } = useGetSpeciesInfo();
   const {
     petName,
@@ -22,10 +33,22 @@ export default function NewPetDetails() {
     handleAddCurrentWeight,
     breed,
     setBreed,
+    setPhotoUri,
+    photoUri,
   } = useAddPet();
   const { date: birthDate, showDatepicker, datePicker } = useDatePicker();
 
-  const { takePhoto, pickFile } = useImagePicker();
+  const { takePhoto, pickFile, addToStorage } = useImagePicker();
+
+  const handleAddPhoto = () => {
+    setForPhotos(true);
+    setModalVisible(true);
+  };
+
+  const handleAddDocument = () => {
+    setForPhotos(false);
+    setModalVisible(true);
+  };
 
   return (
     <PageWithoutNavigation>
@@ -36,11 +59,36 @@ export default function NewPetDetails() {
       />
       <ScrollView contentContainerStyle={styles.form}>
         {datePicker() && datePicker()}
-        <View>
-          <View style={styles.iconContainer}>
-            <Icon fill={COLORS.BLACK_SECONDARY} />
-          </View>
-          <Pressable>
+        <AddFileModal
+          forPhotos={forPhotos}
+          visible={modalVisible}
+          onClose={() => setModalVisible(false)}
+          onAddFile={pickFile}
+          onOpenCamera={async () => {
+            const photo = await takePhoto(true);
+            if (!photo) {
+              console.log("No Photo!");
+            }
+            photo && setPhotoUri(photo);
+          }}
+        />
+        <View style={styles.imageContainer}>
+          {photoUri ? (
+            <Image
+              source={{ uri: photoUri }}
+              style={{
+                width: 140,
+                height: 140,
+                borderRadius: 100,
+              }}
+              resizeMode="cover"
+            />
+          ) : (
+            <View style={styles.iconContainer}>
+              <Icon fill={COLORS.BLACK_SECONDARY} />
+            </View>
+          )}
+          <Pressable onPress={handleAddPhoto}>
             <Text style={styles.text}>Dodaj zdjęcie</Text>
           </Pressable>
         </View>
@@ -69,16 +117,20 @@ export default function NewPetDetails() {
           onChangeText={handleAddCurrentWeight}
           placeholder=""
         />
-        <Button onPress={() => {}} title="+ Dodaj dokument" />
+        <Button onPress={handleAddDocument} title="+ Dodaj dokument" />
       </ScrollView>
     </PageWithoutNavigation>
   );
 }
 
 const styles = StyleSheet.create({
+  imageContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
   iconContainer: {
-    width: 100,
-    height: 100,
+    width: 140,
+    height: 140,
     borderRadius: 100,
     justifyContent: "center",
     alignItems: "center",

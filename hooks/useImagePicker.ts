@@ -1,16 +1,17 @@
 import { getDocumentAsync } from "expo-document-picker";
 import { launchCameraAsync } from "expo-image-picker";
+import { File, Paths } from "expo-file-system/next";
 import { router } from "expo-router";
 
 export const useImagePicker = () => {
-  const takePhoto = async (returnResult?: boolean) => {
+  const takePhoto = async (returnUri?: boolean) => {
     const result = await launchCameraAsync({
       mediaTypes: ["images"],
       aspect: [1, 1],
-    });
+    }).then((res) => res);
 
     if (result.canceled) return;
-    if (returnResult) return result;
+    if (returnUri) return result.assets?.[0].uri;
     router.push({
       pathname: "/new-document",
       params: {
@@ -19,13 +20,13 @@ export const useImagePicker = () => {
     });
   };
 
-  const pickFile = async (returnResult?: boolean) => {
-    let result = await getDocumentAsync({
+  const pickFile = async (returnUri?: boolean) => {
+    const result = await getDocumentAsync({
       type: ["application/pdf", "image/png", "image/jpeg"],
-    });
+    }).then((res) => res);
 
     if (result.canceled) return;
-    if (returnResult) return result;
+    if (returnUri) return result.assets?.[0].uri;
     router.push({
       pathname: "/new-document",
       params: {
@@ -34,8 +35,18 @@ export const useImagePicker = () => {
     });
   };
 
+  const addToStorage = (fileName: string) => {
+    const file = new File(Paths.cache, fileName ?? "");
+    file.create();
+
+    file.move(Paths.document);
+
+    return file.uri;
+  };
+
   return {
     takePhoto,
     pickFile,
+    addToStorage,
   };
 };

@@ -7,6 +7,7 @@ export const useAddPet = () => {
   const [breed, setBreed] = useState<string>("");
   const [weight, setWeight] = useState<number>();
   const [weightingDate, setWeightingDate] = useState<Date>();
+  const [photoUri, setPhotoUri] = useState("");
 
   const handleAddCurrentWeight = (arg: string) => {
     setWeight(+arg);
@@ -20,5 +21,7 @@ export const useAddPet = () => {
     setBreed,
     weight,
     handleAddCurrentWeight,
+    photoUri,
+    setPhotoUri,
   };
 };

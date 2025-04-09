@@ -3,19 +3,21 @@ import { Button } from "../button/Button";
 import { CustomModal } from "./Modal";
 import { COLORS } from "@/consts";
 
-interface AddDocumentModalProps {
+interface AddFileModalProps {
   visible: boolean;
   onClose: () => void;
   onAddFile: () => void;
   onOpenCamera: () => void;
+  forPhotos?: boolean;
 }
 
-export const AddDocumentModal = ({
+export const AddFileModal = ({
   visible,
   onClose,
   onAddFile,
   onOpenCamera,
-}: AddDocumentModalProps) => {
+  forPhotos = false,
+}: AddFileModalProps) => {
   const handleAddFile = () => {
     onAddFile();
     onClose();
@@ -29,10 +31,17 @@ export const AddDocumentModal = ({
   return (
     <CustomModal visible={visible} onClose={onClose}>
       <View>
-        <Text style={styles.title}>Dodaj dokument</Text>
-        <Text style={styles.subtitle}>Wybierz źródło dokumentu</Text>
+        <Text style={styles.title}>{`Dodaj ${
+          forPhotos ? "zdjęcie" : "dokument"
+        }`}</Text>
+        <Text style={styles.subtitle}>{`Wybierz źródło ${
+          forPhotos ? "zdjęcia" : "dokumentu"
+        }`}</Text>
         <View style={styles.buttonsContainer}>
-          <Button title="+ Zrób zdjęcie dokumentu" onPress={handleOpenCamera} />
+          <Button
+            title={`+ Zrób zdjęcie ${!forPhotos ? "dokumentu" : ""}`}
+            onPress={handleOpenCamera}
+          />
           <Button title="+ Dodaj plik z dysku" onPress={handleAddFile} />
 
           <Button title="Anuluj" type="secondary" onPress={onClose} />

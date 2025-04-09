@@ -12,9 +12,11 @@ import {
 
 import { useLocalSearchParams } from "expo-router";
 import { useDatePicker } from "@/modules/date-picker";
+import { useImagePicker } from "@/hooks/useImagePicker";
 
 export default function NewDocument() {
   const [fileName, setFileName] = useState<string | null>(null);
+  const { addToStorage } = useImagePicker();
   const [comment, setComment] = useState<string | null>(null);
   const { date, showDatepicker, showTimepicker, datePicker } = useDatePicker();
   const [animal, setAnimal] = useState<string | null>(null);
@@ -29,14 +31,7 @@ export default function NewDocument() {
   }, [name]);
 
   const handleSave = () => {
-    // TODO: Save the new document in the database (realm) once it's ready
-
-    const file = new File(Paths.cache, name ?? "");
-    file.create();
-
-    file.move(Paths.document);
-
-    const uri = file.uri;
+    const uri = addToStorage(name);
   };
 
   return (
