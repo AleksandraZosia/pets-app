@@ -3,11 +3,24 @@ import { Header, PageWithoutNavigation, SpeciesItem } from "@/components";
 import { species } from "@/consts/species";
 import { capitalize } from "@/helpers/stringFunctions";
 import { mapSpecies } from "@/mappers/mapSpecies";
+import { useState } from "react";
+import { router } from "expo-router";
 
 export default function NewPet() {
+  const [selectedSpecies, setSelectedSpecies] = useState<number | null>(null);
   return (
     <PageWithoutNavigation>
-      <Header title="Nowy zwierzak" canGoBack HeaderRightTitle="Next" />
+      <Header
+        title="Nowy zwierzak"
+        canGoBack
+        HeaderRightTitle="Next"
+        handleHeaderRightPress={() =>
+          router.navigate({
+            pathname: "/new-pet/[id]",
+            params: { id: selectedSpecies ?? "" },
+          })
+        }
+      />
       <ScrollView>
         <Text style={styles.title}>Wybierz gatunek</Text>
         <View style={styles.speciesContainer}>
@@ -16,8 +29,8 @@ export default function NewPet() {
               key={species.id}
               name={capitalize(mapSpecies(species.name))}
               Icon={species.avatar}
-              onPress={() => {}}
-              isSelected={false}
+              onPress={() => setSelectedSpecies(species.id)}
+              isSelected={selectedSpecies === species.id}
             />
           ))}
         </View>
