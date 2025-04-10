@@ -12,3 +12,5 @@ class TrackedWeight extends Realm.Object<TrackedWeight> {
     },
   };
 }
+
+export default TrackedWeight;

@@ -9,9 +9,11 @@ import {
 import { COLORS } from "@/consts";
 import { useImagePicker } from "@/hooks/useImagePicker";
 import { mapSpecies } from "@/mappers/mapSpecies";
+import Pet from "@/models/pets/pet";
 import { useDatePicker } from "@/modules";
 import { useAddPet } from "@/modules/new-pet/useAddPet";
 import { useGetSpeciesInfo } from "@/modules/new-pet/useGetSpeciesInfo";
+import { useRealm } from "@realm/react";
 import { useState } from "react";
 import {
   ScrollView,
@@ -23,6 +25,7 @@ import {
 } from "react-native";
 
 export default function NewPetDetails() {
+  const realm = useRealm();
   const [modalVisible, setModalVisible] = useState(false);
   const [forPhotos, setForPhotos] = useState(false);
   const { speciesId, speciesName, Icon, needsBreed } = useGetSpeciesInfo();
@@ -48,6 +51,27 @@ export default function NewPetDetails() {
   const handleAddDocument = () => {
     setForPhotos(false);
     setModalVisible(true);
+  };
+
+  const savePet = () => {
+    realm.write(() => {
+      const trackedWeightList = realm.create("TrackedWeight", {
+        name: "Initial weight",
+        weight: weight || 0,
+        added: new Date(),
+      });
+
+      return new Pet(realm, {
+        name: petName,
+        species: speciesId.toString(),
+        speciesName: speciesName,
+        imageUri: photoUri || "",
+        gender: "unknown", // Default value since it's required but not in the form
+        breed: breed,
+        birthDate: birthDate,
+        trackedWeight: weight ? [trackedWeightList] : [],
+      });
+    });
   };
 
   return (
