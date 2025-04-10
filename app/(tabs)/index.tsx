@@ -3,8 +3,8 @@ import { useState } from "react";
 import {
   DefaultPage,
   Button,
-  AddDocumentModal,
   CalendarWithAgenda,
+  AddFileModal,
 } from "@/components";
 import { COLORS } from "@/consts";
 import { router } from "expo-router";
@@ -16,7 +16,7 @@ export default function Index() {
 
   return (
     <DefaultPage>
-      <AddDocumentModal
+      <AddFileModal
         visible={addDocumentModalVisible}
         onClose={() => setAddDocumentModalVisible(false)}
         onAddFile={pickFile}
