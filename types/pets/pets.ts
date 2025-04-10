@@ -9,13 +9,18 @@ export type Pet = {
   gender: GenderTypes;
   breed?: string;
   color?: string;
-  weight?: number;
+  trackedWeight?: TrackedWeight[];
   documentsIds: string[] | null;
   eventsIds: string[] | null;
   birthDate: Date;
 };
 
 export type Pets = Pet[];
+
+export type TrackedWeight = {
+  weight: number;
+  added: Date;
+};
 
 export type SpeciesTypes =
   | "dog"

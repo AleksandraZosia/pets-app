@@ -11,7 +11,7 @@ class Pet extends Realm.Object<Pet> {
   gender!: string; // GenderTypes
   breed?: string;
   color?: string;
-  weight?: number;
+  trackedWeight?: TrackedWeight;
   documents?: Document[];
   events?: Event[];
   birthDate!: Date;
@@ -27,7 +27,10 @@ class Pet extends Realm.Object<Pet> {
       gender: "string", // Will contain GenderTypes values
       breed: "string?",
       color: "string?",
-      weight: "float?",
+      trackedWeight: {
+        type: "list",
+        objectType: "TrackedWeight",
+      },
       documents: {
         type: "list",
         objectType: "Document",
