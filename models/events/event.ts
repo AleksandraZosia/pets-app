@@ -1,3 +1,4 @@
+import "react-native-get-random-values";
 import Realm, { BSON } from "realm";
 
 class Event extends Realm.Object<Event> {
@@ -27,13 +28,13 @@ class Event extends Realm.Object<Event> {
       type: "string", // Will contain EventType values
       customEventType: "string?",
       status: "string", // Will contain EventStatus values
-      documentsIds: "string[]?",
+      documentsIds: "string?[]",
       location: "string?",
       dateString: "string",
       timeString: "string?",
       calendarGroup: {
         type: "linkingObjects",
-        objectType: "calendarGroup",
+        objectType: "CalendarGroup",
         property: "data",
       },
     },

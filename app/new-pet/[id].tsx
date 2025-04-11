@@ -1,3 +1,4 @@
+import "react-native-get-random-values";
 import {
   AddFileModal,
   Button,
@@ -10,6 +11,7 @@ import { COLORS } from "@/consts";
 import { useImagePicker } from "@/hooks/useImagePicker";
 import { mapSpecies } from "@/mappers/mapSpecies";
 import Pet from "@/models/pets/pet";
+import TrackedWeight from "@/models/pets/trackedWeight";
 import { useDatePicker } from "@/modules";
 import { useAddPet } from "@/modules/new-pet/useAddPet";
 import { useGetSpeciesInfo } from "@/modules/new-pet/useGetSpeciesInfo";
@@ -23,6 +25,7 @@ import {
   Pressable,
   Image,
 } from "react-native";
+import { BSON } from "realm";
 
 export default function NewPetDetails() {
   const realm = useRealm();
@@ -55,21 +58,15 @@ export default function NewPetDetails() {
 
   const savePet = () => {
     realm.write(() => {
-      const trackedWeightList = realm.create("TrackedWeight", {
-        name: "Initial weight",
-        weight: weight || 0,
-        added: new Date(),
-      });
-
       return new Pet(realm, {
         name: petName,
+        _id: new BSON.ObjectId(),
         species: speciesId.toString(),
         speciesName: speciesName,
         imageUri: photoUri || "",
         gender: "unknown", // Default value since it's required but not in the form
         breed: breed,
         birthDate: birthDate,
-        trackedWeight: weight ? [trackedWeightList] : [],
       });
     });
   };
@@ -80,6 +77,7 @@ export default function NewPetDetails() {
         title={`Nowy zwierzak-${mapSpecies(speciesName)}`}
         canGoBack
         HeaderRightTitle="Zapisz"
+        handleHeaderRightPress={savePet}
       />
       <ScrollView contentContainerStyle={styles.form}>
         {datePicker() && datePicker()}

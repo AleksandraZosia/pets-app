@@ -10,7 +10,8 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "userInterfaceStyle": "light"
+      "userInterfaceStyle": "light",
+      "bundleIdentifier": "com.aleksandrazosia.petapp"
     },
     "android": {
       "userInterfaceStyle": "light",
@@ -18,7 +19,11 @@
         "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#FFFEFC"
       },
-      "package": "com.aleksandrazosia.petapp"
+      "package": "com.aleksandrazosia.petapp",
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -42,11 +47,14 @@
           "photosPermission": "Aplikacja ma dostęp do Twoich zdjęć w celu dodania ich do profilu Twojego pupila.",
           "cameraPermission": "Aplikacja ma dostęp do Twojej kamery w celu dodania zdjęć do profilu Twojego pupila."
         }
-      ],      
-      "expo-document-picker",       
+      ],
+      "expo-document-picker",
       "expo-font",
       "expo-asset",
-      ["./plugins/withDisableForcedDarkModeAndroid.js", "disable-forced-dark-mode"]
+      [
+        "./plugins/withDisableForcedDarkModeAndroid.js",
+        "disable-forced-dark-mode"
+      ]
     ],
     "experiments": {
       "typedRoutes": true
@@ -59,6 +67,10 @@
         "projectId": "df96178f-d9a8-4f78-b2e6-55803fbeb201"
       }
     },
-    "owner": "aleksandrazosia"
+    "owner": "aleksandrazosia",
+    "runtimeVersion": "1.0.0",
+    "updates": {
+      "url": "https://u.expo.dev/df96178f-d9a8-4f78-b2e6-55803fbeb201"
+    }
   }
 }

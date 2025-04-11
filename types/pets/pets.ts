@@ -1,6 +1,8 @@
 import { SvgProps } from "react-native-svg";
+import { BSON } from "realm";
 
 export type Pet = {
+  _id: BSON.ObjectId;
   id: string;
   name: string;
   species: SpeciesTypes;
@@ -10,8 +12,8 @@ export type Pet = {
   breed?: string;
   color?: string;
   trackedWeight?: TrackedWeight[];
-  documentsIds: string[] | null;
-  eventsIds: string[] | null;
+  documents: string[] | null;
+  events: string[] | null;
   birthDate: Date;
 };
 

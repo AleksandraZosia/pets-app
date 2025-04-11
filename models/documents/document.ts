@@ -1,3 +1,4 @@
+import "react-native-get-random-values";
 import Realm, { BSON } from "realm";
 
 class Document extends Realm.Object<Document> {
@@ -13,13 +14,12 @@ class Document extends Realm.Object<Document> {
 
   static schema: Realm.ObjectSchema = {
     name: "Document",
-    primaryKey: "id",
     properties: {
       _id: "objectId",
       name: "string",
       description: "string?",
-      petId: "objectId",
-      eventIds: "objectId[]",
+      petId: { type: "objectId", indexed: true },
+      eventIds: { type: "list", objectType: "objectId" },
       petName: "string",
       type: "string", // This will store the DocumentType
       fileUri: "string",
@@ -28,6 +28,7 @@ class Document extends Realm.Object<Document> {
         default: () => new Date(),
       },
     },
+    primaryKey: "_id",
   };
 }
 

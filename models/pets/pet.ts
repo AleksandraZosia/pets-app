@@ -1,9 +1,11 @@
+import "react-native-get-random-values";
 import Realm, { BSON } from "realm";
 import Event from "../events/event";
 import Document from "../documents/document";
+import TrackedWeight from "../weight/trackedWeight";
 
 class Pet extends Realm.Object<Pet> {
-  _id: BSON.ObjectId = new BSON.ObjectId();
+  _id!: BSON.ObjectId;
   name!: string;
   species!: string; // SpeciesTypes
   speciesName?: string;
@@ -11,7 +13,7 @@ class Pet extends Realm.Object<Pet> {
   gender!: string; // GenderTypes
   breed?: string;
   color?: string;
-  trackedWeight?: TrackedWeight;
+  trackedWeight?: TrackedWeight[];
   documents?: Document[];
   events?: Event[];
   birthDate!: Date;
@@ -27,10 +29,10 @@ class Pet extends Realm.Object<Pet> {
       gender: "string", // Will contain GenderTypes values
       breed: "string?",
       color: "string?",
-      trackedWeight: {
-        type: "list",
-        objectType: "TrackedWeight",
-      },
+      // trackedWeight: {
+      //   type: "list",
+      //   objectType: "TrackedWeight",
+      // },
       documents: {
         type: "list",
         objectType: "Document",
