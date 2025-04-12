@@ -7,6 +7,11 @@ import DogIcon from "@/assets/icons/dog.svg";
 import { calculateAge } from "@/helpers/dateFunctions";
 import { useQuery } from "@realm/react";
 import Pet from "@/models/pets/pet";
+import { species } from "@/consts/species";
+import { SvgProps } from "react-native-svg";
+
+const getSpeciesAvatar = (petSpecies: string) =>
+  species.find((sp) => sp.name === petSpecies)?.avatar ?? DogIcon;
 
 const renderItem = ({ item }: { item: PetType }) => (
   <PetItem
@@ -15,7 +20,7 @@ const renderItem = ({ item }: { item: PetType }) => (
     petPhoto={item.imageUri}
     petName={item.name}
     petAge={calculateAge(item.birthDate)}
-    Icon={DogIcon}
+    Icon={getSpeciesAvatar(item.speciesName ?? "")}
   />
 );
 
@@ -25,6 +30,7 @@ export default function Pets() {
     name: pet.name,
     imageUri: pet.imageUri,
     birthDate: pet.birthDate,
+    speciesName: pet.speciesName,
   }));
   return (
     <DefaultPage>
@@ -52,6 +58,7 @@ const styles = StyleSheet.create({
     gap: 16,
     paddingHorizontal: 8,
     paddingVertical: 25,
+    maxHeight: 460,
   },
   flatList: {
     gap: 16,

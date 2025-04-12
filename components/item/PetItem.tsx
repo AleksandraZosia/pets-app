@@ -51,8 +51,8 @@ export const PetItem = ({
           >
             {/* TODO: it should be a source={uri: petPhoto}, once there is access to the device storage */}
             <Image
-              source={petPhoto}
-              style={{ width: 64, height: 64 }}
+              source={{ uri: petPhoto }}
+              style={{ width: 64, height: 64, borderRadius: 100 }}
               resizeMode="cover"
             />
           </ImageBackground>
@@ -62,7 +62,9 @@ export const PetItem = ({
           <Text style={styles.petAge}>{formattedPetAge()}</Text>
         </View>
       </View>
-      <Icon />
+      <View>
+        <Icon fill={COLORS.YELLOW_MAIN} />
+      </View>
     </TouchableOpacity>
   );
 };

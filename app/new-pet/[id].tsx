@@ -11,12 +11,11 @@ import { COLORS } from "@/consts";
 import { useImagePicker } from "@/hooks/useImagePicker";
 import { mapSpecies } from "@/mappers/mapSpecies";
 import Pet from "@/models/pets/pet";
-import TrackedWeight from "@/models/pets/trackedWeight";
 import { useDatePicker } from "@/modules";
 import { useAddPet } from "@/modules/new-pet/useAddPet";
 import { useGetSpeciesInfo } from "@/modules/new-pet/useGetSpeciesInfo";
 import { useRealm } from "@realm/react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -26,6 +25,7 @@ import {
   Image,
 } from "react-native";
 import { BSON } from "realm";
+import { router } from "expo-router";
 
 export default function NewPetDetails() {
   const realm = useRealm();
@@ -44,7 +44,9 @@ export default function NewPetDetails() {
   } = useAddPet();
   const { date: birthDate, showDatepicker, datePicker } = useDatePicker();
 
-  const { takePhoto, pickFile, addToStorage } = useImagePicker();
+  // Maybe use this inside AddFileModal?
+  const { takePhoto, pickFile, addToStorage, file } = useImagePicker();
+  const photoPreview = useMemo(() => file?.uri, [file]);
 
   const handleAddPhoto = () => {
     setForPhotos(true);
@@ -57,6 +59,8 @@ export default function NewPetDetails() {
   };
 
   const savePet = () => {
+    setPhotoUri(addToStorage(file?.name || ""));
+
     realm.write(() => {
       return new Pet(realm, {
         name: petName,
@@ -69,6 +73,7 @@ export default function NewPetDetails() {
         birthDate: birthDate,
       });
     });
+    router.navigate("../(tabs)/[pets]");
   };
 
   return (
@@ -85,19 +90,13 @@ export default function NewPetDetails() {
           forPhotos={forPhotos}
           visible={modalVisible}
           onClose={() => setModalVisible(false)}
-          onAddFile={pickFile}
-          onOpenCamera={async () => {
-            const photo = await takePhoto(true);
-            if (!photo) {
-              console.log("No Photo!");
-            }
-            photo && setPhotoUri(photo);
-          }}
+          onAddFile={() => pickFile(forPhotos)}
+          onOpenCamera={async () => await takePhoto(forPhotos)}
         />
         <View style={styles.imageContainer}>
-          {photoUri ? (
+          {photoPreview ? (
             <Image
-              source={{ uri: photoUri }}
+              source={{ uri: photoPreview }}
               style={{
                 width: 140,
                 height: 140,
@@ -134,7 +133,7 @@ export default function NewPetDetails() {
           value={birthDate.toLocaleDateString()}
         />
         <Input
-          label="Waga"
+          label="Waga (w kg)"
           value={weight ? `${weight}` : ""}
           onChangeText={handleAddCurrentWeight}
           placeholder=""
