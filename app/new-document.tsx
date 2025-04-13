@@ -8,6 +8,8 @@ import {
   Input,
   InputWithIcon,
   DateTimePicker,
+  Dropdown,
+  DropdownWithLabel,
 } from "@/components";
 
 import { useLocalSearchParams } from "expo-router";
@@ -19,7 +21,9 @@ export default function NewDocument() {
   const { addToStorage } = useImagePicker();
   const [comment, setComment] = useState<string | null>(null);
   const { date, showDatepicker, showTimepicker, datePicker } = useDatePicker();
-  const [animal, setAnimal] = useState<string | null>(null);
+  const [animal, setAnimal] = useState<{ name: string; id: string } | null>(
+    null
+  );
   const { name } = useLocalSearchParams<{
     name: string;
   }>();
@@ -55,12 +59,18 @@ export default function NewDocument() {
           onChangeText={(newName) => setFileName(newName)}
           value={fileName ?? ""}
         />
-        {/* TODO: Should be a dropdown with list of animals */}
-        <InputWithIcon
+
+        <DropdownWithLabel
           label="Zwierzak"
-          placeholder="Kromka"
-          value={animal ?? ""}
-          onChangeText={(newAnimal) => setAnimal(newAnimal)}
+          onSelect={(arg) => {
+            setAnimal(arg);
+          }}
+          data={[
+            { name: "Kromka", id: "1" },
+            { name: "Chałka", id: "2" },
+            { name: "Chleb", id: "3" },
+          ]}
+          selectedName={animal?.name ?? ""}
         />
         <View style={{ flexDirection: "row", gap: 16 }}>
           {datePicker && datePicker()}

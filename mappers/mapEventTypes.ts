@@ -1,7 +1,10 @@
-import { Event } from "@/types/events/events";
+import { Event, EventType } from "@/types";
 
-export const mapEventTypes = (event: Event) => {
-  switch (event.type) {
+export const mapEventTypes = (eventOrType: Event | EventType) => {
+  const eventType =
+    typeof eventOrType === "string" ? eventOrType : eventOrType.type;
+
+  switch (eventType) {
     case "vaccination":
       return "szczepienie";
     case "deworming":
@@ -9,6 +12,6 @@ export const mapEventTypes = (event: Event) => {
     case "vet_visit":
       return "wizyta u weterynarza";
     case "other":
-      return event.customEventType;
+      return "inne";
   }
 };
