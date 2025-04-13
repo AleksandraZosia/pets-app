@@ -1,5 +1,5 @@
 import { ScrollView, View } from "react-native";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   PageWithoutNavigation,
   Header,
@@ -7,14 +7,25 @@ import {
   InputWithIcon,
   DateTimePicker,
   Button,
+  DropdownWithLabel,
 } from "@/components";
 import { useDatePicker } from "@/modules";
 import { getDocumentAsync, DocumentPickerAsset } from "expo-document-picker";
+import { EventType } from "@/types";
+import { EVENTS } from "@/consts";
+import { mapEventTypes } from "@/mappers/mapEventTypes";
+
+const mappedEvents = {};
 
 export default function NewEvent() {
   const [eventName, setEventName] = useState("");
-  const [petName, setPetName] = useState("");
-  const [eventType, setEventType] = useState("");
+  const [animal, setAnimal] = useState<{ name: string; id: string } | null>(
+    null
+  );
+  const [eventType, setEventType] = useState<{
+    id: EventType;
+    name: string;
+  } | null>(null);
   const [place, setPlace] = useState("");
   const [comment, setComment] = useState("");
   const { date, showDatepicker, showTimepicker, datePicker } = useDatePicker();
@@ -27,6 +38,7 @@ export default function NewEvent() {
     if (result.canceled) return;
     setFile(result.assets[0]);
   };
+
   return (
     <PageWithoutNavigation>
       <Header
@@ -64,17 +76,23 @@ export default function NewEvent() {
             picksTime
           />
         </View>
-        <InputWithIcon
+        <DropdownWithLabel
           label="Zwierzak"
-          placeholder="Kromka"
-          value={petName}
-          onChangeText={setPetName}
+          onSelect={(arg) => {
+            setAnimal(arg);
+          }}
+          data={[
+            { name: "Kromka", id: "1" },
+            { name: "Chałka", id: "2" },
+            { name: "Chleb", id: "3" },
+          ]}
+          selectedName={animal?.name ?? ""}
         />
-        <InputWithIcon
+        <DropdownWithLabel
           label="Typ wydarzenia"
-          placeholder="wizyta u weterynarza"
-          value={eventType}
-          onChangeText={setEventType}
+          onSelect={(eventType) => setEventType(eventType)}
+          selectedName={eventType?.name ?? ""}
+          data={EVENTS}
         />
         <InputWithIcon
           label="Miejsce (opcjonalnie)"
