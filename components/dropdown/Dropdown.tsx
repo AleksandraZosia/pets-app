@@ -25,6 +25,7 @@ interface DropdownItem {
 export interface IDropdown<T extends DropdownItem> {
   onSelect: (arg: T) => void;
   selectedName: string;
+  placeholder?: string;
   data: T[];
 }
 
@@ -34,6 +35,7 @@ export const Dropdown = <T extends DropdownItem>({
   onSelect,
   data,
   selectedName,
+  placeholder = "Wybierz zwierzaka",
 }: IDropdown<T>) => {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const [dropdownHeight, setDropdownHeight] = useState(0);
@@ -98,7 +100,7 @@ export const Dropdown = <T extends DropdownItem>({
         id="dropdown"
         onPress={toggleDropdown}
       >
-        <Text>{`${selectedName || "Wybierz zwierzaka"}`}</Text>
+        <Text>{selectedName || placeholder}</Text>
         <DropdownIcon width={20} height={20} />
       </TouchableOpacity>
 

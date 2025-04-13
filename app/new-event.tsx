@@ -93,6 +93,7 @@ export default function NewEvent() {
           onSelect={(eventType) => setEventType(eventType)}
           selectedName={eventType?.name ?? ""}
           data={EVENTS}
+          placeholder="Wybierz typ wydarzenia"
         />
         <InputWithIcon
           label="Miejsce (opcjonalnie)"
