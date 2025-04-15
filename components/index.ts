@@ -7,3 +7,4 @@ export * from "./input";
 export * from "./modal";
 export * from "./calendar";
 export * from "./dropdown";
+export * from "./avatar";

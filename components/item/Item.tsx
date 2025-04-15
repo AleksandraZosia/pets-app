@@ -2,23 +2,15 @@ import React from "react";
 import { COLORS } from "@/consts";
 import { View, StyleSheet, Text, ScrollView } from "react-native";
 
-interface ItemProps {
+export interface IItemProps {
   date?: string;
   time?: string;
   type?: string;
   title?: string;
   description?: string;
-  hasDot?: boolean;
 }
 
-export const Item = ({
-  date,
-  time,
-  type,
-  title,
-  description,
-  hasDot = true,
-}: ItemProps) => {
+export const Item = ({ date, time, type, title, description }: IItemProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.decorative} />
@@ -26,7 +18,7 @@ export const Item = ({
         <View style={styles.row}>
           <Text style={styles.date}>{date}</Text>
           <Text style={styles.date}>{time}</Text>
-          {hasDot && <View style={styles.dot} />}
+          {type && <View style={styles.dot} />}
           <Text style={styles.type}>{type}</Text>
         </View>
         <Text style={styles.title}>{title}</Text>
