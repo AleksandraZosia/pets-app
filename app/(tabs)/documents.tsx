@@ -5,10 +5,11 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
-import { Button, DefaultPage, Header, Item } from "@/components";
+import BottomSheet from "react-native-gesture-bottom-sheet";
+import { Button, DefaultPage, Header, Item, RadioButton } from "@/components";
 import { router } from "expo-router";
 import { COLORS } from "@/consts";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const documents = [
   {
@@ -49,11 +50,73 @@ const documents = [
   },
 ];
 
+const SORT_OPTIONS = [
+  { id: "newest", label: "Od najnowszych", by: "createdAt", order: "desc" },
+  { id: "oldest", label: "Od najstarszych", by: "createdAt", order: "desc" },
+  { id: "alphA", label: "Alfabetycznie A-Z", by: "name", order: "desc" },
+  { id: "alphZ", label: "Alfabetycznie Z-A", by: "name", order: "asc" },
+];
+
+const SortView = () => {
+  const [selectedSort, setSelectedSort] = useState<{
+    id: string;
+    label: string;
+    by: string;
+    order: string;
+  } | null>(null);
+
+  const toggleSelected = (id: string) => {
+    selectedSort?.id === id
+      ? setSelectedSort(null)
+      : setSelectedSort(SORT_OPTIONS.filter((el) => el.id === id)[0]);
+  };
+  return (
+    <View style={sortStyles.container}>
+      <Text style={sortStyles.header}>Sortuj według:</Text>
+      <View style={sortStyles.optionsContainer}>
+        {SORT_OPTIONS.map((el) => (
+          <View key={el.id} style={sortStyles.option}>
+            <RadioButton
+              isChecked={selectedSort?.id === el.id}
+              toggleChecked={toggleSelected}
+              id={el.id}
+            />
+            <Text>{el.label}</Text>
+          </View>
+        ))}
+      </View>
+    </View>
+  );
+};
+
+const sortStyles = StyleSheet.create({
+  container: {
+    padding: 24,
+    gap: 25,
+  },
+  header: {
+    fontFamily: "Lalezar-Regular",
+    fontSize: 20,
+  },
+  option: {
+    flexDirection: "row",
+    gap: 16,
+    alignItems: "center",
+  },
+  optionsContainer: {
+    gap: 24,
+  },
+});
+
 export default function Documents() {
-  const [isSortingVisible, setIsSortingVisible] = useState(false);
+  const sortingRef = useRef();
+  const [isChecked, setIsChecked] = useState(false);
 
   return (
     <DefaultPage>
+      <BottomSheet ref={sortingRef} height={500} hasDraggableIcon>
+        <SortView />
+      </BottomSheet>
       <Header title="Dokumenty" />
       <ScrollView>
         <View style={styles.btnWrapper}>
@@ -65,7 +128,7 @@ export default function Documents() {
         <View>
           <View style={styles.docsContainersHeader}>
             <Text style={styles.docsHeader}>Wszystkie dokumenty</Text>
-            <TouchableOpacity onPress={() => setIsSortingVisible(true)}>
+            <TouchableOpacity onPress={() => sortingRef.current?.show?.()}>
               <Text style={styles.sorting}>SORTOWANIE</Text>
             </TouchableOpacity>
           </View>
